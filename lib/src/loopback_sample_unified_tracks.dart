@@ -5,6 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webrtc/flutter_webrtc.dart';
 
+final _DEFAULT_CONFIG = {
+  'iceServers': [
+    {'urls': "stun:stun.bethesda.net:3478"},
+    {
+      "urls": [
+        // "turn:eu-0.turn.peerjs.com:3478",
+        // "turn:us-0.turn.peerjs.com:3478",
+        "turn:192.168.99.149:8080"
+      ],
+      "username": "peerjs",
+      "credential": "peerjsp",
+    },
+  ],
+  'sdpSemantics': "unified-plan"
+};
+
+class PeerConfig {
+  static const CLOUD_HOST = "0.peerjs.com";
+  static const CLOUD_PORT = 443;
+  static final defaultConfig = _DEFAULT_CONFIG;
+  static const DEFAULT_KEY = "peerjs";
+  static const VERSION = "1.0";
+}
+
 class LoopBackSampleUnifiedTracks extends StatefulWidget {
   static String tag = 'loopback_sample_unified_tracks';
 
@@ -46,11 +70,45 @@ class _MyAppState extends State<LoopBackSampleUnifiedTracks> {
   KeyProvider? _keySharedProvider;
   final Map<String, FrameCryptor> _frameCyrptors = {};
   Timer? _timer;
+
   final _configuration = <String, dynamic>{
     'iceServers': [
-      {'urls': 'stun:stun.l.godfcsfogle.com:19302'},
+      // {'urls': "stun:stun.bethesda.net:3478"},
+      {
+        "urls": [
+          // "turn:eu-0.turn.peerjs.com:3478",
+          // "turn:us-0.turn.peerjs.com:3478",
+          "turn:172.16.11.250:8080"
+        ],
+        "username": "user",
+        "credential": "pass123",
+      },
     ],
-    'sdpSemantics': 'unified-plan',
+    'sdpSemantics': "unified-plan",
+    // 'iceServers': [
+    //   {
+    //     'urls': 'stun:stun.l.google.com:19302',
+    //     // 'urls': 'tls://staging-voip.lgmk-eng.com:5061'
+    //     // 'urls': 'http://localhost:8080/'
+    //     // 'urls': 'http://172.16.11.250:8080/fd9cd6ad-3160-4798-a80e-8eebb7a1a1ae'
+    //     'url': 'turn:172.16.11.250:8080', 'credential': 'pass_test'
+    //   },
+    //   // {
+    //   //   "urls": [
+    //   //     "turn:eu-0.turn.peerjs.com:3478",
+    //   //     "turn:us-0.turn.peerjs.com:3478",
+    //   //   ],
+    //   //   "username": "peerjs",
+    //   //   "credential": "peerjsp",
+    //   // },
+    //   // {
+    //   //   'urls': 'tls://staging-voip.lgmk-eng.com:5061',
+    //   //   // 'urls': 'wss://staging-voip.lgmk-eng.com:7443',
+    //   //   'username': '333334',
+    //   //   'credential': 't8finFxb?^kk'
+    //   // },
+    // ],
+    // 'sdpSemantics': 'unified-plan',
     'encodedInsertableStreams': true,
   };
 
